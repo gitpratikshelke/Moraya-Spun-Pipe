@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended:true }));
 
 
 
-
+// app.use(express.static(path.join(__dirname, '../client/dist')));
 
 
 // MongoDB connection
@@ -49,6 +49,8 @@ mongoose.connect(process.env.MongoDB_String, {
 //     res.status(500).json({ error: 'Failed to fetch products' });
 //   }
 // });
+
+
 
 
 app.get('/products/:limit/:category/:query', async (req, res) => {
@@ -380,7 +382,20 @@ app.post("/upload", async (req, res) => {
 
 //   res.send("Message sent successfully.");
 // });
+app.use(express.static(path.join(__dirname,'../client/dist')));
 
+
+app.get('/explore/:defaultCategory', (req, res) => {
+  res.sendFile(path.join(__dirname,'../client/dist/index.html'));
+});
+
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname,'../client/dist/index.html'));
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname,'../client/dist/index.html'));
+});
 
 // Start server
 const PORT = 5000;
