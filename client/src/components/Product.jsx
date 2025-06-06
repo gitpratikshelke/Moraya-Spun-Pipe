@@ -38,7 +38,7 @@ function Product() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/products/8/All/All");
+        const response = await axios.get("/products/8/All/All");
         const data = response.data; // ✅ axios returns parsed JSON
         console.log(data);
         setProducts(data);
@@ -51,7 +51,7 @@ function Product() {
   }, []);
   const handleShow = async (product) => {
     setId(product._id)
-    const response= await axios.get(`http://localhost:5000/reviews/${product._id}`);
+    const response= await axios.get(`/reviews/${product._id}`);
     console.log(response.data.message);
     setReviews(response.data || []);
     setSelectedProduct(product);
@@ -72,7 +72,7 @@ function Product() {
         id:id
       }
       console.log(mailOptions)
-      const response= await axios.post("http://localhost:5000/send-email",mailOptions);
+      const response= await axios.post("/send-email",mailOptions);
       console.log(response.data);
       alert("Mail Sent Sucessfully")
     }
@@ -93,7 +93,7 @@ function Product() {
       name:name
     }
 
-    const response= await axios.post("http://localhost:5000/review/",review);
+    const response= await axios.post("/review/",review);
     alert(response.data.message);
     setShowReview(false);
     handleShow(product)
